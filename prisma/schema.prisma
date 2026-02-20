@@ -1,0 +1,29 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Department {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  surveys   Survey[]
+}
+
+model Survey {
+  id                     Int        @id @default(autoincrement())
+  departmentId           Int
+  department             Department @relation(fields: [departmentId], references: [id])
+  mentalDemand           Int
+  temporalDemand         Int
+  performance            Int
+  effort                 Int
+  frustration            Int
+  interruptionFrequency  Int
+  createdAt              DateTime   @default(now())
+}
