@@ -27,14 +27,14 @@ interface Summary {
 }
 
 function scoreColor(value: number): string {
-  if (value <= 33) return "#22c55e"; // green
-  if (value <= 66) return "#eab308"; // yellow
+  if (value <= 33) return "#14b8a6"; // teal
+  if (value <= 66) return "#f59e0b"; // amber
   return "#ef4444"; // red
 }
 
 function scoreBg(value: number): string {
-  if (value <= 33) return "bg-green-100 text-green-800";
-  if (value <= 66) return "bg-yellow-100 text-yellow-800";
+  if (value <= 33) return "bg-teal-100 text-teal-800";
+  if (value <= 66) return "bg-amber-100 text-amber-800";
   return "bg-red-100 text-red-800";
 }
 
@@ -57,7 +57,7 @@ export default function DashboardPage() {
   }, [year]);
 
   if (!data) {
-    return <p className="text-gray-500">Loading dashboard...</p>;
+    return <p className="text-warm-600">Loading dashboard...</p>;
   }
 
   const { companyOverall, byDepartment, years } = data;
@@ -76,21 +76,21 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-2">Manager Dashboard</h1>
-      <p className="text-gray-600 mb-6">
+      <h1 className="text-3xl font-bold mb-2 text-teal-700">Manager Dashboard</h1>
+      <p className="text-warm-600 mb-6">
         Overview of cognitive overload scores across your organization.
       </p>
 
       {/* Filters */}
       <div className="flex gap-4 mb-8 flex-wrap">
         <div>
-          <label className="block text-xs font-semibold text-gray-500 mb-1">
+          <label className="block text-xs font-semibold text-warm-600 mb-1">
             Year
           </label>
           <select
             value={year}
             onChange={(e) => setYear(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 bg-white text-sm"
+            className="border border-warm-200 rounded-xl px-3 py-2 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
             <option value="">All time</option>
             {years.map((y) => (
@@ -101,13 +101,13 @@ export default function DashboardPage() {
           </select>
         </div>
         <div>
-          <label className="block text-xs font-semibold text-gray-500 mb-1">
+          <label className="block text-xs font-semibold text-warm-600 mb-1">
             Department
           </label>
           <select
             value={selectedDept}
             onChange={(e) => setSelectedDept(e.target.value)}
-            className="border border-gray-300 rounded-lg px-3 py-2 bg-white text-sm"
+            className="border border-warm-200 rounded-xl px-3 py-2 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
             <option value="all">All Departments</option>
             {byDepartment.map((d) => (
@@ -120,61 +120,61 @@ export default function DashboardPage() {
       </div>
 
       {/* Response count */}
-      <p className="text-sm text-gray-500 mb-4">
+      <p className="text-sm text-warm-600 mb-4">
         {displayData.count} total response{displayData.count !== 1 ? "s" : ""}
       </p>
 
       {/* Chart */}
       {chartData.length > 0 ? (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-          <h2 className="font-semibold text-lg mb-4">
+        <div className="bg-white rounded-2xl border border-warm-200 p-6 mb-8 shadow-sm">
+          <h2 className="font-semibold text-lg mb-4 text-warm-800">
             Average Scores {selectedDept === "all" ? "(Company-wide)" : ""}
           </h2>
           <ResponsiveContainer width="100%" height={350}>
             <BarChart data={chartData} layout="vertical" margin={{ left: 130 }}>
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#e8e0d4" />
               <XAxis type="number" domain={[0, 100]} />
               <YAxis type="category" dataKey="name" width={120} tick={{ fontSize: 13 }} />
               <Tooltip />
-              <Bar dataKey="score" radius={[0, 6, 6, 0]}>
+              <Bar dataKey="score" radius={[0, 8, 8, 0]}>
                 {chartData.map((entry, index) => (
                   <Cell key={index} fill={scoreColor(entry.score)} />
                 ))}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-          <div className="flex gap-4 mt-4 text-xs text-gray-500">
-            <span className="flex items-center gap-1">
-              <span className="w-3 h-3 rounded bg-green-500 inline-block" /> 0–33
+          <div className="flex gap-4 mt-4 text-xs text-warm-600">
+            <span className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-teal-500 inline-block" /> 0–33
               Good
             </span>
-            <span className="flex items-center gap-1">
-              <span className="w-3 h-3 rounded bg-yellow-500 inline-block" />{" "}
+            <span className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />{" "}
               34–66 Moderate
             </span>
-            <span className="flex items-center gap-1">
-              <span className="w-3 h-3 rounded bg-red-500 inline-block" /> 67–100
+            <span className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-red-500 inline-block" /> 67–100
               High
             </span>
           </div>
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-200 p-10 text-center text-gray-400 mb-8">
+        <div className="bg-white rounded-2xl border border-warm-200 p-10 text-center text-warm-600 mb-8 shadow-sm">
           No survey responses yet.
         </div>
       )}
 
       {/* Department breakdown table */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <h2 className="font-semibold text-lg mb-4">Department Breakdown</h2>
+      <div className="bg-white rounded-2xl border border-warm-200 p-6 shadow-sm">
+        <h2 className="font-semibold text-lg mb-4 text-warm-800">Department Breakdown</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-200">
-                <th className="text-left py-2 pr-4 font-semibold">Department</th>
-                <th className="text-center py-2 px-2 font-semibold">Responses</th>
+              <tr className="border-b border-warm-200">
+                <th className="text-left py-2 pr-4 font-semibold text-warm-800">Department</th>
+                <th className="text-center py-2 px-2 font-semibold text-warm-800">Responses</th>
                 {questions.map((q) => (
-                  <th key={q.id} className="text-center py-2 px-2 font-semibold">
+                  <th key={q.id} className="text-center py-2 px-2 font-semibold text-warm-800">
                     {q.label}
                   </th>
                 ))}
@@ -182,19 +182,19 @@ export default function DashboardPage() {
             </thead>
             <tbody>
               {byDepartment.map((d) => (
-                <tr key={d.id} className="border-b border-gray-100">
-                  <td className="py-2 pr-4 font-medium">{d.name}</td>
-                  <td className="text-center py-2 px-2">{d.count}</td>
+                <tr key={d.id} className="border-b border-warm-100">
+                  <td className="py-2.5 pr-4 font-medium">{d.name}</td>
+                  <td className="text-center py-2.5 px-2">{d.count}</td>
                   {questions.map((q) => (
-                    <td key={q.id} className="text-center py-2 px-2">
+                    <td key={q.id} className="text-center py-2.5 px-2">
                       {d.averages ? (
                         <span
-                          className={`inline-block px-2 py-0.5 rounded text-xs font-semibold ${scoreBg(d.averages[q.id])}`}
+                          className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-semibold ${scoreBg(d.averages[q.id])}`}
                         >
                           {d.averages[q.id]}
                         </span>
                       ) : (
-                        <span className="text-gray-300">—</span>
+                        <span className="text-warm-200">—</span>
                       )}
                     </td>
                   ))}

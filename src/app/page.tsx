@@ -52,8 +52,9 @@ export default function SurveyPage() {
   if (submitted) {
     return (
       <div className="text-center py-20">
-        <h1 className="text-3xl font-bold mb-4">Thank you!</h1>
-        <p className="text-gray-600 text-lg">
+        <div className="text-5xl mb-4">🙏</div>
+        <h1 className="text-3xl font-bold mb-4 text-teal-700">Thank you!</h1>
+        <p className="text-warm-600 text-lg">
           Your response has been recorded anonymously.
         </p>
       </div>
@@ -62,22 +63,24 @@ export default function SurveyPage() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-2">Cognitive Overload Survey</h1>
-      <p className="text-gray-600 mb-8">
+      <h1 className="text-3xl font-bold mb-2 text-teal-700">
+        Cognitive Overload Survey
+      </h1>
+      <p className="text-warm-600 mb-8">
         Rate each dimension from 0 to 100. Your response is anonymous — only
         your department is recorded.
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-8">
+      <form onSubmit={handleSubmit} className="space-y-6">
         {/* Department picker */}
-        <div>
-          <label className="block text-sm font-semibold mb-2">
+        <div className="bg-white rounded-2xl border border-warm-200 p-6 shadow-sm">
+          <label className="block text-sm font-semibold mb-2 text-warm-800">
             Your Department
           </label>
           <select
             value={departmentId}
             onChange={(e) => setDepartmentId(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white"
+            className="w-full border border-warm-200 rounded-xl px-4 py-2.5 bg-warm-50 text-warm-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
           >
             <option value="">Select department...</option>
             {departments.map((d) => (
@@ -92,17 +95,19 @@ export default function SurveyPage() {
         {questions.map((q) => (
           <div
             key={q.id}
-            className="bg-white rounded-xl border border-gray-200 p-6"
+            className="bg-white rounded-2xl border border-warm-200 p-6 shadow-sm"
           >
             <div className="flex justify-between items-start mb-1">
-              <h2 className="font-semibold text-lg">{q.label}</h2>
-              <span className="text-2xl font-bold text-blue-600 ml-4">
+              <h2 className="font-semibold text-lg text-warm-800">{q.label}</h2>
+              <span className="text-2xl font-bold text-teal-600 ml-4">
                 {scores[q.id]}
               </span>
             </div>
-            <p className="text-gray-500 text-sm mb-4">{q.description}</p>
+            <p className="text-warm-600 text-sm mb-5">{q.description}</p>
             <div className="flex items-center gap-3">
-              <span className="text-xs text-gray-400 w-10">{q.lowLabel}</span>
+              <span className="text-xs font-medium text-warm-600 w-10">
+                {q.lowLabel}
+              </span>
               <input
                 type="range"
                 min={0}
@@ -115,9 +120,9 @@ export default function SurveyPage() {
                     [q.id]: Number(e.target.value),
                   }))
                 }
-                className="flex-1 h-2 accent-blue-600"
+                className="flex-1 h-2"
               />
-              <span className="text-xs text-gray-400 w-10 text-right">
+              <span className="text-xs font-medium text-warm-600 w-10 text-right">
                 {q.highLabel}
               </span>
             </div>
@@ -131,7 +136,7 @@ export default function SurveyPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white font-semibold py-3 rounded-xl hover:bg-blue-700 disabled:opacity-50 transition"
+          className="w-full bg-teal-600 text-white font-semibold py-3.5 rounded-2xl hover:bg-teal-700 disabled:opacity-50 transition shadow-sm"
         >
           {loading ? "Submitting..." : "Submit Survey"}
         </button>

@@ -50,32 +50,32 @@ export default function AdminPage() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-2">Admin</h1>
-      <p className="text-gray-600 mb-8">
+      <h1 className="text-3xl font-bold mb-2 text-teal-700">Admin</h1>
+      <p className="text-warm-600 mb-8">
         Manage departments and view survey statistics.
       </p>
 
       {/* Stats */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-        <h2 className="font-semibold text-lg mb-2">Survey Stats</h2>
-        <p className="text-3xl font-bold text-blue-600">{totalResponses}</p>
-        <p className="text-sm text-gray-500">total responses</p>
+      <div className="bg-white rounded-2xl border border-warm-200 p-6 mb-8 shadow-sm">
+        <h2 className="font-semibold text-lg mb-2 text-warm-800">Survey Stats</h2>
+        <p className="text-3xl font-bold text-teal-600">{totalResponses}</p>
+        <p className="text-sm text-warm-600">total responses</p>
       </div>
 
       {/* Add department */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-8">
-        <h2 className="font-semibold text-lg mb-4">Add Department</h2>
+      <div className="bg-white rounded-2xl border border-warm-200 p-6 mb-8 shadow-sm">
+        <h2 className="font-semibold text-lg mb-4 text-warm-800">Add Department</h2>
         <form onSubmit={handleAdd} className="flex gap-3">
           <input
             type="text"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             placeholder="Department name"
-            className="flex-1 border border-gray-300 rounded-lg px-4 py-2"
+            className="flex-1 border border-warm-200 rounded-xl px-4 py-2.5 bg-warm-50 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
           />
           <button
             type="submit"
-            className="bg-blue-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+            className="bg-teal-600 text-white font-semibold px-6 py-2.5 rounded-xl hover:bg-teal-700 transition shadow-sm"
           >
             Add
           </button>
@@ -84,12 +84,12 @@ export default function AdminPage() {
       </div>
 
       {/* Department list */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <h2 className="font-semibold text-lg mb-4">Departments</h2>
-        <ul className="divide-y divide-gray-100">
+      <div className="bg-white rounded-2xl border border-warm-200 p-6 shadow-sm">
+        <h2 className="font-semibold text-lg mb-4 text-warm-800">Departments</h2>
+        <ul className="divide-y divide-warm-100">
           {departments.map((d) => (
             <li key={d.id} className="py-3 flex justify-between items-center">
-              <span className="font-medium">{d.name}</span>
+              <span className="font-medium text-warm-800">{d.name}</span>
             </li>
           ))}
         </ul>
