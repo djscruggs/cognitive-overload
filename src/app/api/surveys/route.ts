@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 const FIELDS = [
   "mentalDemand",
   "temporalDemand",
